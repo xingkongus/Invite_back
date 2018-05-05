@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'PRC',
 
     /*
     |--------------------------------------------------------------------------
@@ -124,6 +124,12 @@ return [
     'log' => env('APP_LOG', 'single'),
 
     'log_level' => env('APP_LOG_LEVEL', 'debug'),
+
+    'wx_appid' => env('WX_APPID',''),                       //微信小程序appid
+    'wx_secret' => env('WX_SECRET',''),                     //微信小程序secret
+    'wx_code_url' => 'https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code',    //微信小程序临时登录凭证code
+
+
 
     /*
     |--------------------------------------------------------------------------
