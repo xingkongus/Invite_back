@@ -35,9 +35,9 @@ class WxLibController extends Controller
      */
     public function __construct()
     {
-        $this->wxappid = config('wx_appid');
-        $this->wxsecret = config('wx_secret');
-        $this->wxcodeurl = config('wx_code_url');
+        $this->wxappid = config('app.wx_appid');
+        $this->wxsecret = config('app.wx_secret');
+        $this->wxcodeurl = config('app.wx_code_url');
     }
 
 
