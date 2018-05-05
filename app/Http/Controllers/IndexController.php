@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -13,7 +14,6 @@ class IndexController extends Controller
         //code 在小程序端使用 wx.login 获取
         $code = $request->code;
 
-
         //encryptedData 和 iv 在小程序端使用 wx.getUserInfo 获取
         $encryptedData = $request->encryptedData;
         $iv = $request->iv;
@@ -22,8 +22,20 @@ class IndexController extends Controller
         $userInfo = $wx->getLoginInfo($code);
 
         //获取解密后的用户信息
-        $res =  $wx->getUserInfo($encryptedData, $iv);
-        return $res;
+        $res = json_decode( $wx->getUserInfo($encryptedData, $iv) );
+
+        //若存在则更新，若不存在则插入
+        User::updateOrCreate(
+            ['openId' => $res->openId],['nickName' => $res->nickName, 'avatarUrl' => $res->avatarUrl]
+        );
+
+        //返回前端
+        return response()->json([
+            'openId' => $res->openId,
+            'nickName' => $res->nickName,
+            'avatarUrl' => $res->avatarUrl
+        ]);
+
     }
 
 }
