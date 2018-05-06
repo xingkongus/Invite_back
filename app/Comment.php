@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class comment extends Model
+class Comment extends Model
 {
     protected $guarded = [];
 
@@ -14,5 +14,6 @@ class comment extends Model
     {
         return $this->belongsTo('App\Models\User', 'openId_id', 'openId');
     }
+
 
 }
