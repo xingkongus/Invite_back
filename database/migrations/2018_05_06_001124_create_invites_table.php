@@ -15,9 +15,9 @@ class CreateInvitesTable extends Migration
     {
         Schema::create('invites', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('openId_id')->commet('用户openID');
+            $table->string('openId_id')->comment('用户openID');
             $table->string('content')->comment('邀请函文字');
-            $table->integer('pic')->commet('选择那副图片');
+            $table->integer('pic')->comment('选择那副图片');
             $table->timestamps();
         });
     }
