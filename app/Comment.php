@@ -12,7 +12,13 @@ class Comment extends Model
     // 关联用户表
     public function user()
     {
-        return $this->belongsTo('App\Models\User', 'openId_id', 'openId');
+        return $this->belongsTo('App\User', 'openId_id', 'openId');
+    }
+
+    // 关联点赞表
+    public function like()
+    {
+        return $this->hasMany('App\Like', 'comment_id', 'id');
     }
 
 

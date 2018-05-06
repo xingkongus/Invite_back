@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
+use App\Invite;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -35,6 +37,22 @@ class IndexController extends Controller
             'nickName' => $res->nickName,
             'avatarUrl' => $res->avatarUrl
         ]);
+
+    }
+
+
+    public function test()
+    {
+//        $res = Invite::where('openId_id','oH1Yn4yLnQ_AsJxVSslawb2Emsxg')->first();
+//        $res = $res->comment;
+////        dd($res['0']['id']);
+//
+//        $res = Comment::find($res['0']['id'])->user;
+//        $res = Comment::find(1)->like->count();
+//        dd($res);
+//        $res = Invite::find(1)->user;
+//        dd($res);
+
 
     }
 

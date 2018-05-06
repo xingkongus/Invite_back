@@ -21,5 +21,6 @@ use Illuminate\Http\Request;
 Route::group(['middleware' => 'api'], function () {
 
     Route::post('index', 'IndexController@index');
+    Route::post('test', 'IndexController@test');
 
 });
