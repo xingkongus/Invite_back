@@ -16,7 +16,7 @@ class CreatePartnersTable extends Migration
         Schema::create('partners', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('invite_id')->comment('邀请函ID');
-            $table->integer('openId_id')->comment('用户openID');
+            $table->string('openId_id')->comment('用户openID');
             $table->timestamps();
         });
     }

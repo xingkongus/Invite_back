@@ -16,7 +16,7 @@ class CreateLikesTable extends Migration
         Schema::create('likes', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('comment_id')->comment('评论ID');
-            $table->integer('openId_id')->comment('用户openID');
+            $table->string('openId_id')->comment('用户openID');
             $table->timestamps();
         });
     }
