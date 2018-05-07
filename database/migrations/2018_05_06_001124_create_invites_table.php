@@ -17,7 +17,7 @@ class CreateInvitesTable extends Migration
             $table->increments('id');
             $table->string('openId_id')->comment('用户openID');
             $table->string('content')->comment('邀请函文字');
-            $table->integer('pic')->comment('选择那副图片');
+            $table->string('pic')->comment('选择那副图片');
             $table->timestamps();
         });
     }
