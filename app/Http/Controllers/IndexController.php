@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
-    public function index(Request $request)
+    public function login(Request $request)
     {
         $wx = new WxLibController();
 

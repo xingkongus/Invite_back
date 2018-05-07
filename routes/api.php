@@ -20,7 +20,9 @@ use Illuminate\Http\Request;
 
 Route::group(['middleware' => 'api'], function () {
 
-    Route::post('index', 'IndexController@index');
-    Route::post('test', 'IndexController@BackInfo');
+    Route::post('login', 'IndexController@login');          //登录接口
+
+    Route::post('SetInvite', 'InviteController@SetInvite');         //制作邀请函
+
 
 });
