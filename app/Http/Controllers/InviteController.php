@@ -71,7 +71,7 @@ class InviteController extends Controller
             return response()
                 ->json([
                     'status' => 200,
-                    'msg' => '邀请函创建成功！',
+                    'msg' => '留言成功！',
                 ]);
 
         }
@@ -176,7 +176,7 @@ class InviteController extends Controller
             return response()
                 ->json([
                     'status' => 200,
-                    'msg' => '点赞成功！',
+                    'msg' => '报名成功！',
                 ]);
 
         }
