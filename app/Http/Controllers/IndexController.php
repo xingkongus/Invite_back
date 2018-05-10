@@ -41,6 +41,19 @@ class IndexController extends Controller
 
     }
 
+
+    /**
+     * 返回分享朋友圈图片(有待完善)
+     */
+    public function GetUrl()
+    {
+        $wx = new WxLibController();
+
+        $info = $wx->GetToken();
+        echo json_encode($wx->GetpicUrl($info['access_token']));
+
+    }
+
     /**
      * 返回每个邀请函的具体信息
      *

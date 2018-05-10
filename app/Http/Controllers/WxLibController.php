@@ -14,6 +14,8 @@ class WxLibController extends Controller
     private $wxappid;
     private $wxsecret;
     private $wxcodeurl;
+    private $wxtokenurl;
+    private $wxpicurl;
     private $sessionKey;
 
 
@@ -38,6 +40,8 @@ class WxLibController extends Controller
         $this->wxappid = config('app.wx_appid');
         $this->wxsecret = config('app.wx_secret');
         $this->wxcodeurl = config('app.wx_code_url');
+        $this->wxtokenurl = config('app.wx_token_url');
+        $this->wxpicurl = config('app.wx_pic_url');
     }
 
 
@@ -122,6 +126,35 @@ class WxLibController extends Controller
         $data = $result;
         return WxLibController::$OK;
     }
+
+
+    /**
+     * @return bool|mixed
+     * 请求Token值
+     * todo 建议采用Redis方式存储Token值(过期时间7200s)
+     */
+    public function GetToken()
+    {
+
+        $token_url = sprintf($this->wxtokenurl,$this->wxappid,$this->wxsecret);
+        $TokenInfo = $this->wxcurl($token_url);
+        return $TokenInfo;
+
+    }
+
+
+    public function GetpicUrl($scene,$page,$token)
+    {
+        $token_url = sprintf($this->wxpicurl,$token);
+        $post = array(
+            'scene' => $scene,
+            'page' => $page
+        );
+        $img = $this->wxcurl($token_url,json_encode($post));
+        return $img;
+
+    }
+
 
 
 }
