@@ -22,6 +22,8 @@ Route::group(['middleware' => 'api'], function () {
 
     Route::post('login', 'IndexController@login');          //登录接口
 
+    Route::post('BackInfo', 'IndexController@BackInfo');         //返回信息
+
     Route::post('SetInvite', 'InviteController@SetInvite');         //制作邀请函
 
 

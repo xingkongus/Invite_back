@@ -75,7 +75,9 @@ class IndexController extends Controller
         foreach ($partners as $partner){
 
             $PartnerInfo = Partner::find($partner['id'])->user;                //每条参与者用户信息
-            $Partner[] = $PartnerInfo['avatarUrl'];
+            $Partner[] = array(
+                'avatar' => $PartnerInfo['avatarUrl']
+            );
 
         }
 
@@ -88,10 +90,10 @@ class IndexController extends Controller
             $CommentLikenum = Comment::find($comment['id'])->like->count();        //每条留言的点赞数
 
             $Comment[] = array(
-                'avatarUrl' => $CommentInfo['avatarUrl'],                          //留言者头像
-                'nickName' => $CommentInfo['nickName'],                            //留言者昵称
+                'avatar' => $CommentInfo['avatarUrl'],                          //留言者头像
+                'nickname' => $CommentInfo['nickName'],                            //留言者昵称
                 'content' => $comment['content'],                                  //每条留言的内容
-                'openid' => $comment['openId_id'],                                 //每条留言者openID
+                'id' => $comment['openId_id'],                                 //每条留言者openID
                 'goodnum' => $CommentLikenum                                      //每条留言的点赞数
             );
 
@@ -102,11 +104,11 @@ class IndexController extends Controller
         return response()->json([
             'nickName' => $UserInfo['nickName'],        //邀请函主人昵称
             'avatarUrl' => $UserInfo['avatarUrl'],      //邀请函主人头像
-            'content' => $invite['content'],            //邀请函文字
-            'pic' => $invite['pic'],                    //背景图片(第几幅图)
+            'invitewords' => $invite['content'],            //邀请函文字
+            'siteImg' => $invite['pic'],                    //背景图片(第几幅图)
             'partner' => $Partner,                      //所有参与者
-            'partnernum' => $partnernum,                //参与者总数
-            'comment' => $Comment,                      //所有留言者
+            'acceptedAvators' => $partnernum,                //参与者总数
+            'message' => $Comment,                      //所有留言者
         ]);
 
     }
