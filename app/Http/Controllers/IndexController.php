@@ -66,6 +66,7 @@ class IndexController extends Controller
 
         //查询Invite表(可获得 邀请函文字、背景图片)
         $invite = Invite::where('openId_id',$openid['openid'])->first();
+        $inviteID = $invite['id'];
         $UserInfo = $invite->user;                              //邀请函主人的详细信息(用户名、头像)
 
         //查询Partner表(可获得 所有在该邀请函中参与者openID)
@@ -102,12 +103,13 @@ class IndexController extends Controller
 
         //返回前端
         return response()->json([
+            'inviteID' => $inviteID,                    //邀请函ID
             'nickName' => $UserInfo['nickName'],        //邀请函主人昵称
             'avatarUrl' => $UserInfo['avatarUrl'],      //邀请函主人头像
             'invitewords' => $invite['content'],            //邀请函文字
             'siteImg' => $invite['pic'],                    //背景图片(第几幅图)
-            'partner' => $Partner,                      //所有参与者
-            'acceptedAvators' => $partnernum,                //参与者总数
+            'acceptedAvators' => $Partner,                      //所有参与者
+            'acceptedAvatorsnum' => $partnernum,                //参与者总数
             'message' => $Comment,                      //所有留言者
         ]);
 
