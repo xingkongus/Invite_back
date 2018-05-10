@@ -94,7 +94,8 @@ class IndexController extends Controller
                 'avatar' => $CommentInfo['avatarUrl'],                          //留言者头像
                 'nickname' => $CommentInfo['nickName'],                            //留言者昵称
                 'content' => $comment['content'],                                  //每条留言的内容
-                'id' => $comment['openId_id'],                                 //每条留言者openID
+                'openID' => $comment['openId_id'],                                 //每条留言者openID
+                'id' => $comment['id'],                                         //每条留言ID
                 'goodnum' => $CommentLikenum                                      //每条留言的点赞数
             );
 

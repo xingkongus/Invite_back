@@ -25,6 +25,9 @@ Route::group(['middleware' => 'api'], function () {
     Route::post('BackInfo', 'IndexController@BackInfo');         //返回信息
 
     Route::post('SetInvite', 'InviteController@SetInvite');         //制作邀请函
+    Route::post('SetComment', 'InviteController@SetComment');         //添加留言
+    Route::post('SetLike', 'InviteController@SetLike');         //点赞
+    Route::post('SetPartner', 'InviteController@SetPartner');         //参与者
 
 
 });
