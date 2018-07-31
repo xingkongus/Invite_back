@@ -131,28 +131,49 @@ class WxLibController extends Controller
     /**
      * @return bool|mixed
      * 请求Token值
-     * todo 建议采用Redis方式存储Token值(过期时间7200s)
+     * todo 建议采用Redis或者cache方式存储Token值(过期时间7200s)
      */
-    public function GetToken()
+    public function GetAccessToken()
     {
-
-        $token_url = sprintf($this->wxtokenurl,$this->wxappid,$this->wxsecret);
-        $TokenInfo = $this->wxcurl($token_url);
-        return $TokenInfo;
-
+        //如果access_token没有过期，直接return
+        if (session('access_token') && session('expire_time') > time()) {
+            return session('access_token');
+        } else {
+            //重新获取access_token
+            $token_url = sprintf($this->wxtokenurl,$this->wxappid,$this->wxsecret);
+            $TokenInfo = $this->wxcurl($token_url);
+            session(['access_token' => $TokenInfo['access_token']]);
+            session(['expire_time' => (time() + 7000)]);
+            return session('access_token');
+        }
     }
 
-
+    /**
+     * @param $scene 场景值
+     * @param $page  页面
+     * @param $token access_token
+     */
     public function GetpicUrl($scene,$page,$token)
     {
-        $token_url = sprintf($this->wxpicurl,$token);
-        $post = array(
-            'scene' => $scene,
-            'page' => $page
+        $url = sprintf($this->wxpicurl,$token);
+        $data = array(
+            "scene" => $scene,
+            "page" => "pages/other/other",
+            "width" => 430,
+            "auto_color" => true
         );
-        $img = $this->wxcurl($token_url,json_encode($post));
-        return $img;
-
+        $data = json_encode($data);
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        $output = curl_exec($ch);
+        curl_close($ch);
+        $path = dirname(dirname(dirname(dirname(__FILE__)))) . '/public/img/'. $scene.'.png';
+        $res = file_put_contents($path,$output);
     }
 
 

@@ -21,7 +21,7 @@ use Illuminate\Http\Request;
 Route::group(['middleware' => 'api'], function () {
 
     Route::post('login', 'IndexController@login');          //登录接口
-    Route::post('GetUrl', 'IndexController@GetUrl');          //登录接口
+    Route::post('GetUrl', 'IndexController@GetUrl');          //图片接口
 
     Route::post('BackInfo', 'IndexController@BackInfo');         //返回信息
 

@@ -45,12 +45,23 @@ class IndexController extends Controller
     /**
      * 返回分享朋友圈图片(有待完善)
      */
-    public function GetUrl()
+    public function GetUrl(Request $request)
     {
+        $input = $request->all();
         $wx = new WxLibController();
 
-        $info = $wx->GetToken();
-        echo json_encode($wx->GetpicUrl($info['access_token']));
+        $info = $wx->GetAccessToken();
+
+        $scene = $input['scene'];            //场景值
+        $page = "pages/other/other";             //页面
+
+        $res = $wx->GetpicUrl($scene,$page,$info);
+
+        return response()
+            ->json([
+                'status' => 200,
+                'msg' => '小程序码创建成功！',
+            ]);
 
     }
 
