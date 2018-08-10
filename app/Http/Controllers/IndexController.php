@@ -6,6 +6,7 @@ use App\Comment;
 use App\Invite;
 use App\Partner;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -28,13 +29,14 @@ class IndexController extends Controller
         $res = json_decode( $wx->getUserInfo($encryptedData, $iv,$userInfo['session_key']) );
 
         //若存在则更新，若不存在则插入
-        User::updateOrCreate(
+        $user = User::updateOrCreate(
             ['openId' => $res->openId],['nickName' => $res->nickName, 'avatarUrl' => $res->avatarUrl]
         );
+        $token = Auth::guard('api')->fromUser($user);
 
         //返回前端
         return response()->json([
-            'status' => 200,
+            'token' => $token,
             'openId' => $res->openId,
             'nickName' => $res->nickName,
             'avatarUrl' => $res->avatarUrl
