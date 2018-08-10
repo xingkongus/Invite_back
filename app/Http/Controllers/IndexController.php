@@ -11,6 +11,16 @@ use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
+    /**
+     * Create a new AuthController instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('token.refresh', ['except' => ['login']]);
+    }
+
     public function login(Request $request)
     {
         $wx = new WxLibController();
@@ -36,10 +46,12 @@ class IndexController extends Controller
 
         //返回前端
         return response()->json([
-            'token' => $token,
-            'openId' => $res->openId,
-            'nickName' => $res->nickName,
-            'avatarUrl' => $res->avatarUrl
+            'token' => "Bearer ".$token,
+            'userinfo' => array(
+                'openId' => $res->openId,
+                'nickName' => $res->nickName,
+                'avatarUrl' => $res->avatarUrl
+            )
         ]);
 
     }

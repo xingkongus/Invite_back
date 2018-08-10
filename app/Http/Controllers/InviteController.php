@@ -10,6 +10,15 @@ use Illuminate\Http\Request;
 
 class InviteController extends Controller
 {
+    /**
+     * Create a new AuthController instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('token.refresh', ['except' => ['login']]);
+    }
 
     /**
      * @param Request $request
@@ -33,7 +42,6 @@ class InviteController extends Controller
 
             //如果存在则更新，如果不存在则创建
             Invite::updateOrCreate( ['openId_id' => $input['openId_id'] ], ['content' => $input['content'], 'pic' => $input['pic'] ] );
-
 
             return response()
                 ->json([
