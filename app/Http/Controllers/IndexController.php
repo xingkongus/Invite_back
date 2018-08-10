@@ -25,7 +25,7 @@ class IndexController extends Controller
         $userInfo = $wx->getLoginInfo($code);
 
         //获取解密后的用户信息
-        $res = json_decode( $wx->getUserInfo($encryptedData, $iv) );
+        $res = json_decode( $wx->getUserInfo($encryptedData, $iv,$userInfo['session_key']) );
 
         //若存在则更新，若不存在则插入
         User::updateOrCreate(
@@ -34,6 +34,7 @@ class IndexController extends Controller
 
         //返回前端
         return response()->json([
+            'status' => 200,
             'openId' => $res->openId,
             'nickName' => $res->nickName,
             'avatarUrl' => $res->avatarUrl
@@ -126,7 +127,17 @@ class IndexController extends Controller
                 $CommentInfo = Comment::find($comment['id'])->user;                //每条留言用户信息
                 $CommentLikenum = Comment::find($comment['id'])->like->count();        //每条留言的点赞数
 
+                //判断该用户是否已经点赞 点赞true 未点赞false
+                $IsLikeflag = false;
+                $IsLikes = Comment::find($comment['id'])->like;
+                foreach ($IsLikes as $key => $IsLike) {
+                    if ($IsLike['openId_id'] == $openid['openid']) {
+                        $IsLikeflag = true;
+                    }
+                }
+
                 $Comment[] = array(
+                    'IsLikeflag' => $IsLikeflag,                                    //该用户是否点赞
                     'avatar' => $CommentInfo['avatarUrl'],                          //留言者头像
                     'nickname' => $CommentInfo['nickName'],                            //留言者昵称
                     'content' => $comment['content'],                                  //每条留言的内容
