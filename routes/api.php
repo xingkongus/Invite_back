@@ -24,6 +24,7 @@ Route::group(['middleware' => 'api'], function () {
     Route::post('GetUrl', 'IndexController@GetUrl');          //图片接口
 
     Route::post('BackInfo', 'IndexController@BackInfo');         //返回信息
+    Route::post('BackInfofriend', 'IndexController@BackInfofriend');         //返回信息(朋友圈入口)
 
     Route::post('SetInvite', 'InviteController@SetInvite');         //制作邀请函
     Route::post('SetComment', 'InviteController@SetComment');         //添加留言

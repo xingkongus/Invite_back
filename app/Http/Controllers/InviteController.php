@@ -17,7 +17,7 @@ class InviteController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('token.refresh', ['except' => ['login']]);
+        $this->middleware('token.refresh', ['except' => ['login','BackInfofriend']]);
     }
 
     /**
