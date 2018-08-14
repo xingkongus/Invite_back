@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class WxLibController extends Controller
 {
@@ -172,8 +173,8 @@ class WxLibController extends Controller
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         $output = curl_exec($ch);
         curl_close($ch);
-        $path = dirname(dirname(dirname(dirname(__FILE__)))) . '/public/img/'. $scene.'.png';
-        $res = file_put_contents($path,$output);
+        $captcha_url = '/public/img/' . $scene . ".png";
+        Storage::put($captcha_url, $output);
     }
 
 
