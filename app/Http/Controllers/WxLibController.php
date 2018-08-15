@@ -159,7 +159,7 @@ class WxLibController extends Controller
         $url = sprintf($this->wxpicurl,$token);
         $data = array(
             "scene" => $scene,
-            "page" => "pages/other/other",
+            "page" => $page,
             "width" => 430,
             "auto_color" => true
         );

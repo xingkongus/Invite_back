@@ -73,7 +73,7 @@ class IndexController extends Controller
         $info = $wx->GetAccessToken();
 
         $scene = $input['scene'];            //场景值
-        $page = "pages/other/other";             //页面
+        $page = "pages/other/main";             //页面
 
         $res = $wx->GetpicUrl($scene,$page,$info);
 
